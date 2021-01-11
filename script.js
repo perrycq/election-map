@@ -9,7 +9,6 @@ var makePolitician = function(name) {
     return politician;
 };
 
-
 var politician1 = makePolitician("Bitcoin");
 politician1.electionResults = [5,1,7,2,33,6,4,2,1,14,8,3,1,11,11,0,5,3,3,3,7,4,8,9,3,7,2,2,4,2,8,3,15,15,2,12,0,4,13,1,3,2,8,21,3,2,11,1,3,7,2];
 var politician2 = makePolitician("Ethereum");
@@ -22,7 +21,39 @@ politician2.electionResults[9] = 28;
 politician1.electionResults[43] = 11;
 politician2.electionResults[43] = 27;
 
-console.log(politician1.electionResults);
-console.log(politician2.electionResults);
+politician1.totalVotes = function () {
+
+    this.totalVotes = 0;
+
+    for (var i = 0; i < this.electionResults.length; i++)
+    {
+        this.totalVotes = this.totalVotes + this.electionResults[i];
+        console.log(this.totalVotes);
+    }
+};
+
+politician2.totalVotes = function () {
+
+    this.totalVotes = 0;
+
+    for (var i = 0; i < this.electionResults.length; i++)
+    {
+        this.totalVotes = this.totalVotes + this.electionResults[i];
+        console.log(this.totalVotes);
+    }
+};
+
+politician1.totalVotes();
+politician2.totalVotes();
+
+var declareWinner = function() {
+    if (politician1.totalVotes > politician2.totalVotes){
+        console.log(politician1.name + " is the winner with " + politician1.totalVotes + " votes!");
+    } else {
+        console.log(politician2.name + " is the winner with " + politician2.totalVotes + " votes!");
+    }
+};
+
+declareWinner();
 
 // });
