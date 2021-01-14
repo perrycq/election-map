@@ -1,17 +1,19 @@
-// $(document).ready(function() {
+//$(document).ready(function() {
 
-var makePolitician = function(name) {    
+var makePolitician = function(name, partyColor) {    
     var politician = {};
     politician.name = name;
     politician.electionResults = null;
     politician.totalVotes = 0;
+    politician.partyColor = partyColor;
 
     return politician;
 };
 
-var politician1 = makePolitician("Bitcoin");
+var politician1 = makePolitician("Bitcoin", [132, 17, 11]);
 politician1.electionResults = [5,1,7,2,33,6,4,2,1,14,8,3,1,11,11,0,5,3,3,3,7,4,8,9,3,7,2,2,4,2,8,3,15,15,2,12,0,4,13,1,3,2,8,21,3,2,11,1,3,7,2];
-var politician2 = makePolitician("Ethereum");
+
+var politician2 = makePolitician("Ethereum", [245, 141, 136]);
 politician2.electionResults = [4,2,4,4,22,3,3,1,2,15,8,1,3,9,0,6,1,5,5,1,3,7,8,1,3,3,1,3,2,2,6,2,14,0,1,6,7,3,7,3,6,1,3,17,3,1,2,11,2,3,1];
 
 politician1.electionResults[4] = 17;
@@ -43,17 +45,29 @@ politician2.totalVotes = function () {
     }
 };
 
+var setStateResults = function(state) {
+    allStates[state].winner = null;
+
+    if (politician1.electionResults[state] > politician2.electionResults[state]){
+        allStates[state].winner = politician1.name;
+    } else {
+        allStates[state].winner = politician2.name
+    }
+};
+
 politician1.totalVotes();
 politician2.totalVotes();
 
 var declareWinner = function() {
     if (politician1.totalVotes > politician2.totalVotes){
         console.log(politician1.name + " is the winner with " + politician1.totalVotes + " votes!");
-    } else {
+    } else if (politician2.totalVotes > politician1.totalVotes){
         console.log(politician2.name + " is the winner with " + politician2.totalVotes + " votes!");
+    } else {
+        console.log("It's a draw. We may need a recount!")
     }
 };
 
 declareWinner();
 
-// });
+//});
