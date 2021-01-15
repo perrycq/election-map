@@ -1,5 +1,3 @@
-//$(document).ready(function() {
-
 var makePolitician = function(name, partyColor) {    
     var politician = {};
     politician.name = name;
@@ -21,7 +19,7 @@ var makePolitician = function(name, partyColor) {
     return politician;
 };
 
-var winner = null;
+var winner = "???";
 
 var bitcoin = makePolitician("Bitcoin", [132, 17, 11]);
 bitcoin.electionResults = [5,1,7,2,33,6,4,2,1,14,8,3,1,11,11,0,5,3,3,3,7,4,8,9,3,7,2,2,4,2,8,3,15,15,2,12,0,4,13,1,3,2,8,21,3,2,11,1,3,7,2];
@@ -67,6 +65,31 @@ var setStateResults = function(state) {
     } else {
         theStates[state].rgbColor = [11, 32, 57];
     }
+
+    var stateInfoTable = document.getElementById("stateResults");
+    var header = stateInfoTable.children[0];
+    var body = stateInfoTable.children[1];
+    var stateName = header.children[0].children[0];
+    var abbrev = header.children[0].children[1];
+    var name1 = body.children[0].children[0];
+    var results1 = body.children[0].children[1];
+    var name2 = body.children[1].children[0];
+    var results2 = body.children[1].children[1];
+    var winnersName = body.children[2].children[1];
+
+    stateName.innerText = theStates[state].nameFull;
+    abbrev.innerText = "(" + theStates[state].nameAbbrev + ")";
+
+    name1.innerText = bitcoin.name;
+    name2.innerText = ethereum.name;
+    results1.innerText = bitcoin.electionResults[state];
+    results2.innerText = ethereum.electionResults[state];
+
+    if(theStates[state] === null){
+        winnersName.innerText = "DRAW!";
+    } else {
+        winnersName.innerText = theStates[state].winner.name;
+    }
 }
 /////////////////////////////////////////////////////////
     bitcoin.totalVotes();
@@ -81,6 +104,7 @@ var setStateResults = function(state) {
     } else {
         winner = "We can't have a tie, redo!";
     }
+
 
     var countryInfoTable = document.getElementById("countryResults");
     var row = countryInfoTable.children[0].children[0];
